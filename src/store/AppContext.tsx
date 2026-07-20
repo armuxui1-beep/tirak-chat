@@ -11,7 +11,7 @@ import { ref, deleteObject } from 'firebase/storage';
 import { signInAnonymously } from 'firebase/auth';
 import {
   collection, doc, onSnapshot, setDoc, updateDoc, deleteDoc, getDoc, getDocs,
-  query, where, writeBatch, arrayUnion, arrayRemove, deleteField, increment, onDisconnect
+  query, where, writeBatch, arrayUnion, arrayRemove, deleteField, increment
 } from 'firebase/firestore';
 
 /* ================= State ================= */
@@ -691,7 +691,11 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
             lastSeen: Date.now(),
           });
           const userRef = doc(db, 'users', foundUser.id);
-          onDisconnect(userRef).update({ online: false, lastSeen: Date.now() });
+          const setOffline = () => { updateDoc(userRef, { online: false, lastSeen: Date.now() }).catch(() => {}); };
+          window.addEventListener('beforeunload', setOffline);
+          document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'hidden') setOffline();
+          });
         } catch { /* ignore */ }
         
         // Save to local state and localStorage

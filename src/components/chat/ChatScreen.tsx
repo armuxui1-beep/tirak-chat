@@ -9,7 +9,7 @@ import { MessageBubble } from './MessageBubble';
 import { MessageInput } from './MessageInput';
 import { ChatSettingsSheet } from './ChatSettings';
 import { GRADIENTS } from '@/config/constants';
-import { dateSeparatorLabel, disappearLabel, formatRelativeTime, formatTime } from '@/lib/helpers';
+import { dateSeparatorLabel, disappearLabel, formatRelativeTime } from '@/lib/helpers';
 import { cn } from '@/lib/utils';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import {
