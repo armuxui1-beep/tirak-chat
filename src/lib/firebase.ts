@@ -66,14 +66,16 @@ export async function getMessagingInstance() {
 }
 
 // Listen for foreground messages
-export function onForegroundMessage(callback: (payload: any) => void) {
+export function onForegroundMessage(callback: (payload: any) => void): () => void {
+  let unsub: (() => void) | null = null;
   getMessagingInstance().then((m) => {
     if (m) {
-      onMessage(m, (payload) => {
+      unsub = onMessage(m, (payload) => {
         callback(payload);
       });
     }
   });
+  return () => { if (unsub) unsub(); };
 }
 
 export default app;
