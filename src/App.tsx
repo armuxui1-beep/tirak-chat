@@ -15,7 +15,6 @@ const OtpScreen = lazy(() => import('@/components/auth/AuthScreens').then(m => (
 const ProfileSetupScreen = lazy(() => import('@/components/auth/AuthScreens').then(m => ({ default: m.ProfileSetupScreen })));
 const PinSetupScreen = lazy(() => import('@/components/auth/AuthScreens').then(m => ({ default: m.PinSetupScreen })));
 const LockScreen = lazy(() => import('@/components/auth/AuthScreens').then(m => ({ default: m.LockScreen })));
-const StoriesScreen = lazy(() => import('@/components/stories/StoriesScreen').then(m => ({ default: m.StoriesScreen })));
 const StoryViewer = lazy(() => import('@/components/stories/StoriesScreen').then(m => ({ default: m.StoryViewer })));
 const CallsScreen = lazy(() => import('@/components/calls/CallsScreen').then(m => ({ default: m.CallsScreen })));
 const CallOverlay = lazy(() => import('@/components/calls/CallsScreen').then(m => ({ default: m.CallOverlay })));
@@ -41,7 +40,6 @@ const BUBBLE_STYLES: Record<string, { from: string; to: string }> = {
 
 const TABS: { key: TabKey; label: string; icon: React.ReactNode }[] = [
   { key: 'chats', label: 'แชท', icon: <MessageCircle width={22} height={22} /> },
-  { key: 'stories', label: 'สตอรี่', icon: <Sparkles width={22} height={22} /> },
   { key: 'calls', label: 'สายเรียก', icon: <Phone width={22} height={22} /> },
   { key: 'settings', label: 'ตั้งค่า', icon: <Settings width={22} height={22} /> },
 ];
@@ -144,11 +142,6 @@ function MainApp() {
           </>
         )}
 
-        {state.activeTab === 'stories' && (
-          <Suspense fallback={<ScreenLoader />}>
-            <div className="h-full w-full flex-1 min-w-0"><StoriesScreen /></div>
-          </Suspense>
-        )}
         {state.activeTab === 'calls' && (
           <Suspense fallback={<ScreenLoader />}>
             <div className="h-full w-full flex-1 min-w-0"><CallsScreen /></div>
